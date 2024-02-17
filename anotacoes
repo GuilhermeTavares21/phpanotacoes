@@ -1,0 +1,506 @@
+-Para abrir o código php, primeiro de tudo vc abre o XAMPP e da start
+ no mysql e no apache,depois escreve localhost/ na barra de pesquisa.
+
+-<?php ?> todo código php tem que estar dentrp dessa tag.
+
+-Padrão camelCase
+
+-necessário colocar ; no final de cada código.
+
+-As aspas simples são úteis quando você precisa exibir exatamente o que está entre elas, sem interpretar variáveis ou caracteres especiais. As aspas duplas, por outro lado, 
+permitem a interpretação de variáveis e caracteres de escape
+
+-Toda variável no php é precedida de $. 
+$nome = 'Clara';(string)
+$idade = 90; (number)
+$dormindo = true; (boolean) 
+$vazia = null (vazia/sem valor algum)
+
+-Para juntar variáveis:
+<?php
+$nome = 'Clara ';
+$sobrenome = 'Inácio';
+$nomeCompleto = $nome.$sobrenome; //o ponto entre valores serve para juntar
+echo $nomeCompleto; //para exibir na tela
+?>
+
+-outro jeito é: $nomeCompleto = "$nome $sobrenome"; (aspas duplas em)
+$nome = 'Clara';
+$sobrenome = 'Inácio';
+$idade = 21;
+$frase = "$nome $sobrenome tem $idade anos"; (observe as aspas duplas e simples)
+echo $frase;
+
+-Arrays:
+<?php
+$ingredientes = [
+    'açúcar',
+    'farinha',
+    'ovo',
+    'leite',
+    'fermento',
+    10,
+    20
+];
+echo $ingredientes[0]; //vai mostrar açúcar
+?>
+
+-Arrya Spread (pegar informações de um outro array sem precisar copiar e colar)
+<?php
+$bolo1 = [
+    'açúcar',
+    'farinha',
+    'ovo',
+    'leite',
+    'fermento',
+];
+
+$bolo2 = [
+    ...$bolo1,
+    'corante'
+];
+
+echo $bolo2[3];
+?>
+
+-Para mostrar o array todo na tela: print_r($nomedoarray);
+
+-/////EXERCÍCO/////
+<?php
+$list=[
+    'nome' => 'Clara',
+    'idade' => 21,
+    'atributos' => [
+        'forca' => 90,
+        'agilidade' => 80,
+        'destreza' => 50
+    ],
+    'vida' => 1000,
+    'mana' => 928
+    ];
+echo 'nome: '. $list['nome']."<br/>";
+echo 'força: '. $list['atributos']['forca']."<br/>";
+echo 'vida: '. $list['vida'] ."<br/>";
+
+echo $list['nome'].' '. 'tem' . ' '. $list['idade'].' '. 'anos.';
+
+?>
+////////////////////////////////////////////////////////////////////
+
+- Condicional IF
+<?php
+$idade = 10;
+
+if($idade < 18) {
+    echo 'Menor de idade';
+} else {
+    echo 'Maior de idade';
+}
+?>
+
+-Condicional ternário (if de um linha)
+(condição) ? resultado positivo : resultado negativo;
+echo ($idade < 18) ? 'Menor de idade' : 'Maior de idade'; ou armazena em uma variavel
+$resultado = ($idade < 18) ? 'Menor de idade' : 'Maior de idade';
+
+-Condicional NULL CAO
+<?php
+$nome = 'Clara';
+
+
+$nomeCompleto = $nome;
+$nomeCompleto .= isset($sobrenome) ? $sobrenome : '';
+echo $nomeCompleto
+?>
+A expressão isset verifica se a variável $sobrenome está definida usando 
+a função isset(). Se $sobrenome estiver definido, seu valor é concatenado
+à variável $nomeCompleto. Caso contrário, uma string vazia.
+
+Mas temos uma forma mais simples de fazer a linha 112, que é o NULL CAO
+<?php
+$nome = 'Clara';
+
+$nomeCompleto = $nome;
+$nomeCompleto .= $sobrenome ?? '';//vc coloca ?? e depois só a condição negativa 
+echo $nomeCompleto
+?>
+
+-Switch
+<?php
+$tipo = 'nada';
+
+switch($tipo){
+    case 'foto':
+        echo 'Exibindo foto';
+        break;
+    case 'video':
+        echo 'Exibindo video';
+        break;
+    case 'texto':
+        echo 'Exibindo texto';
+        break;
+    default:
+    echo 'poste algo';
+
+}
+?>
+
+-Loop While (while significa enquanto)
+<?php
+$numero = 0;
+
+while($numero < 10) {
+    echo "N: " .$numero. "<br/>";
+    $numero ++;
+}
+?>
+
+-Loo For (faz a mesma coisa qu eo while, porem é mais seguro)
+for(definir a variavel; condição; codigo que vai ser executado  ){
+    codigo 
+}
+<?php
+for($numero = 0; $numero < 10; $numero++ ){
+    echo "N: " .$numero. "<br/>";
+}
+?>
+Normalmente usamos a variavel i, ao invés de algo grande 
+<?php
+for($i = 0; $i < 10; $i++ ){
+    echo "N: " .$numero. "<br/>";
+}
+?>
+
+-Loop Foreach/ para cada (exclusivo para trabalhar com arrys)- aula 7/modúlo2
+<?php
+$ingredientes = [
+    'açúcar',
+    'farinha',
+    'ovo',
+    'leite',
+    'feremento'
+];
+echo '<h2>Ingredientes</h2>';
+foreach($ingredientes as $ingrediente) {
+    echo "Item: ".$ingrediente."<br/>";
+};
+?>
+Nesse código, o foreach vai iterar sobre cada elemento do array e exibir
+cada ingrediente na tela, precedido pela string "Item:" e seguido por uma 
+quebra de linha (<br/>).
+E para pegar a chave do item(valor da sua posição):
+<?php
+echo '<h2>Ingredientes</h2>';
+foreach($ingredientes as $chave => $ingrediente) {
+    echo "Item: ".$chave. ": ".$ingrediente."<br/>";
+};
+?>
+
+-///////////EXERCÍCIO///////////////////////////////////////////////////////
+<?php
+$x = 0;
+while($x <= 10){
+    echo '---------'."<br/>";
+    $x++;
+}
+?>
+Agora colocando apenas um -
+<?php
+$number = 0;
+while($number <= 10){
+    echo str_repeat("-", 10)."<br/>";
+    $number++;
+}
+?>
+
+Agora com o for
+<?php
+
+for($i = 0; $i < 10; $i++){
+    echo str_repeat("-", 10)."<br/>";
+}
+?>
+
+/////////////////////////////////////////////////////////////////////////////
+
+-///////////EXERCÍCIO///////////////////////////////////////////////////////
+<?php
+ for($i = 0; $i < 21; $i++) {
+    for($p = 0;$p < $i; $p++) {
+        echo "-";
+    }
+    echo "</br>";
+
+ }
+
+?>
+DIFICIL
+////////////////////////////////////////////////////////////////////////////
+
+/////////////////EXERCÍCIO//////////////////////////////////////////////////
+LISTAR OS ELEMENTOS DO ARRAY
+<?php 
+$lista = ['clara','livia','dani','mara','guilherme','roberto','leticia'];
+for ($i = 0; $i < count($lista); $i++) {
+    echo $lista[$i]."\n";
+   
+}
+?>
+////////////////////////////////////////////////////////////////////////////
+
+-FUNÇÕES
+<?php
+function subsequente() {
+    for($q=0; $q<10;$q++) {
+        echo $q."<br/>";
+    }
+
+    echo "<hr/>"; //linha horizontal
+}
+
+subsequente(); //chamando a função
+
+?>
+outro exemplo:
+<?php
+function latir() {
+    echo 'auau'."<br/>";
+}
+latir();
+?>
+
+-Parâmetros de funções
+function nome(aqui vem os parâmetros)
+<?php
+function somar($n1, $n2 ) {
+    $total = $n1 + $n2;
+    return $total; //saída da função
+}
+
+$soma = somar(10, 5);
+echo 'Total: '.$soma;
+?>
+
+-Parâmetros com valor padrão:
+<?php
+function somar1($n1, $n2, $n3 = 0) { //n3 ficou com um valor padrão caso eu não mande nenhum valor para n3. Isso se chama parâmetro padrão
+    $total = $n1 + $n2 + $n3;
+    return $total; //saída da função
+}
+
+$x = somar1(1, 3);
+$y = somar1(5, 3, 2);
+$w = somar1($x, $y);
+echo $w;
+?>
+
+-Definir o tipo de parâmetro
+<?php
+function somar2(int $n1, $n2, $n3 = 0) { //coloque o nome do tipo antes da variável
+    $total = $n1 . $n2 + $n3;
+    return $total; //saída da função
+}
+
+$x = somar2(1, 3.2, 4);
+echo $x;
+?>
+
+-Parâmetros: Referência ou Valor
+<?php
+function somar3($n1, $n2 ) {
+    $total = $n1 + $n2;
+    return $total; 
+}
+
+$x = 3;
+$y = 2;
+$soma = somar3($x, $y); //passagem de parâmetros por valor
+echo $soma;
+?>
+Agora por referência:
+<?php
+function somar4($n1, $n2, &$total ) {
+    $total = $n1 + $n2; 
+}
+
+$x = 3;
+$y = 2;
+$soma = 9;
+somar4($x, $y, $soma); 
+echo $x. ' + ' .$y.' = '.$soma;
+//Sem a referência, a função teria uma cópia do valor de $soma que seria 0, se fosse outro número,por exemplo, 9, pegaria o 9.
+?>
+
+-Funcão anônima (elas não tem nome)
+formas de usá-las:
+    Atribuição a Variáveis:
+Você pode atribuir uma função anônima a uma variável e
+chamá-la posteriormente:
+<?php
+$dizimo = function(int $valor){
+    return $valor * 0.1; //10% de valor
+};
+
+echo $dizimo(90);
+
+//Podemos passar ela para outra variável tbm:
+$funcao = $dizimo;
+echo $funcao(82);
+?>
+
+    Como parâmetros:
+<?php
+/*$funcao = function() {
+    codigo;
+};
+
+algumaFuncao(10, $funcao){
+
+};
+*/
+?>
+-Arrow function 
+Só serve quando a função tem apenas um comando
+<?php
+$dizimo = fn($valor) => $valor * 0.1;
+echo $dizimo(210);
+
+$somar5 = fn(int $n1, int $n2) => $n1 + $n2;
+echo $somar5(25,12);
+?>
+
+-Função Recursiva
+é uma função que chama a si mesma durante sua execução
+<?php
+function divide($number) {
+    $half = $number / 2;
+    echo $half."<br/>";
+
+    if(round($half) > 0 ) { //o round está arredondando
+        divide($half);
+    }
+}
+
+echo divide(100);
+?>
+
+-Funções Nativas de Matemática
+<?php
+//como pegar o valor absoluto dele (ele positivo): abs(...);
+$number = -8.4;
+echo abs($number); 
+
+//pi:
+echo pi();
+
+//Arredonda o número para baixo: floor(...); importante
+$number = 2.7;
+echo floor($number);
+
+//Arredonda o número para cima ceil();
+echo ceil($number);
+
+//Arredonda o número (dependendo do número,arredonda para cima ou para baixo)
+echo round($number,2); //esse 2 é um exemplo de quantas casas decimais vc quer, se não colocar, por padrão, é zero
+
+//Gera um número aleatório (vc coloca 2 números, um mínimo e um máximo)
+echo rand(2,5); //por ex.
+
+//Função para saber qual é o MAIOR número da lista(array)
+$lista = [2,3,5,4];
+echo max($lista);
+
+//Função para saber qual é o MENOR número da lista(array)
+$lista = [2,3,5,4];
+echo min($lista);
+?>
+
+-Funções nativas para manipulação de strings
+<?php
+//Função para remover espaços: trim();
+$nome = '       Clara      ';
+echo trim($nome);
+
+
+//Função para contar a quantidades de caracteres em uma string: strlen() obs:ela conta os espaços também
+echo strlen($nome);
+
+//Função que transforma a string TODA EM MINÚSCULA: strtolower()
+echo strtolower($nome);
+
+//Função que transforma a string TODA EM MAIUSCULA : strtoupper()
+echo strtoupper($nome);
+
+//Função que SUBSTITUI palavras dentro da frase por exemplo: strreplace('palavra que está procurando','palavra que vc quer colocar', $variavel)
+$nome = 'Clara Inácio';
+$nomeAlterado = str_replace('Inácio', 'Souza', $nome);
+
+echo $nomeAlterado;
+
+//Função que PEGA CARACTERES da palavra: substr($variavel, onde começa,onde quer que pare)
+$nomeCompleto = 'Clara Inácio';
+$nome = substr($nomeCompleto,0,4);
+echo $nome; //clar
+
+//Função que procura uma string ou palavra dentro de outra string e retorna a posição do que estamos procurando: strpos(variavel, 'oq ta procurando')
+$nomeCompleto = 'Clara Inácio';
+$posicao = strpos($nomeCompleto,'a');
+//podemos ate combinar com um if:
+    if($posicao >= 0){
+        echo 'ACHOU';
+    } else {
+        echo 'NÃO ACHOU';
+    }
+
+
+//Função que transforma a PRIMEIRA LETRA APENAS EM MAIÚSCULA: ucfisrt($variavel)
+$nomeCompleto = 'clara';
+echo ucfirst($nomeCompleto);
+
+//Função que transforma a PRIMEIRA LETRA DE CADA PALAVRA EM MAIÚSCULA: ucwords()
+$nomeCompleto = 'clara inacio';
+echo ucwords($nomeCompleto);
+
+//Função que transforma cada palavra em 1 item do array: explode('oq vai separar as palavras',$variavel) 
+$nomeCompleto = 'clara inacio de souza aguiar';
+$nome = explode(' ',$nomeCompleto);
+
+print_r($nome); //para mostrar todo array na tela 
+
+//Função para formatar um número: number_format($variavel, quantidade de casas decimais, simbolo para separar as casas decimais(opicional), simbolo para separar os milhares(opcional)  )
+$number = 12540.52369;
+echo number_format($number,2,',','.');
+?>
+
+-Funções nativas para manipulação de -Arrays
+<?php
+//Função para saber quantos itens tenho no array: count()
+$lista = ['nome1','nome2','nome3','nome4'];
+echo "total: ".count($lista); //total: 4 
+
+//Diferença de um array para o outro: array_diff($geral,$qual vc quer comparar)
+$lista = ['clara','livia','dani','mara','guilherme','roberto','leticia'];
+$malucos = ['livia', 'mara','roberto'];
+$normais = array_diff($lista,$malucos);
+print_r($normais);
+
+//Função que vai filtrar algo no array: array_filter(). Primeiro coloca a variavel que vc quer filtrar, depois vem a fuçao, vc pode criar ela fora e dps colcar ela la tb
+$numbers = [2,3,4,52,123,45,55,62,14];
+
+$filtrados = array_filter($numbers, function($item){
+    if ($item <30) {
+        return true;
+    } else {
+        return false;
+    }
+});
+print_r($filtrados);
+
+//Função que vai executar algo: array_map(função, array que eu quero)
+$numbers = [2,3,4,52,123,45,55,62,14];
+$dobrados = array_map(function($item){
+    return $item * 2;
+}, $numbers);
+print_r($dobrados);
+
+
